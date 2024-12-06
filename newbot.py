@@ -3,29 +3,29 @@ import pandas as pd
 import time
 from binance.client import Client
 
-import os
+# Telegram bot details
+bot_token = "7661939787:AAGrZZDX46NEC0e4-_jTWFiAq1ItkmE9NDs"  # Replace with your bot token
+chat_id = "6818110328"  # Replace with your chat ID
 
-bot_token = os.getenv("BOT_TOKEN")
-chat_id = os.getenv("CHAT_ID")
-api_key = os.getenv("API_KEY")
-api_secret = os.getenv("API_SECRET")
-
-
-
+# Binance API details
+api_key = "hWYjyzJlBGH1ZnLUmfZp0vNGsI9P7DOK3eYeTljeqS83FxHdKAo7td48b4YFVKTo"
+api_secret = "Zl4GaOFliK1VD3F5ZeQFts9XQzy9Ruqv4mzwpwhiS6i3YxzDCi1OpKetGPIxMYh6"
 client = Client(api_key, api_secret)
 
 # Symbols and configuration
 symbols = [
-    "BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT", "MATICUSDT", "ADAUSDT", "XRPUSDT", "DOGEUSDT", 
-    "LTCUSDT", "AVAXUSDT", "TRXUSDT", "DOTUSDT", "SHIBUSDT", "LINKUSDT", "ATOMUSDT", "APTUSDT", 
-    "ARBUSDT", "FTMUSDT", "NEARUSDT", "ALGOUSDT", "FILUSDT", "SANDUSDT", "GALAUSDT", "EGLDUSDT", 
-    "THETAUSDT", "FLOWUSDT", "AAVEUSDT", "AXSUSDT", "ENSUSDT", "RNDRUSDT", "CRVUSDT", "CAKEUSDT", 
-    "1INCHUSDT", "DYDXUSDT", "CHZUSDT", "ROSEUSDT", "KSMUSDT", "RUNEUSDT", "WAVESUSDT", "MINAUSDT", 
-    "LDOUSDT", "IMXUSDT", "ZILUSDT", "HNTUSDT", "QNTUSDT", "STGUSDT", "CVCUSDT", "ANKRUSDT", 
-    "GRTUSDT", "BCHUSDT"
+    "BTCUSDT", "ETHUSDT", "BNBUSDT", "XRPUSDT", "DOGEUSDT",
+    "SOLUSDT", "LTCUSDT", "MATICUSDT", "ADAUSDT", "AVAXUSDT", 
+    "DOTUSDT", "SHIBUSDT", "LINKUSDT", "BCHUSDT", "TRXUSDT", 
+    "UNIUSDT", "FTMUSDT", "AAVEUSDT", "SUSHIUSDT", "GALAUSDT",
+    "MKRUSDT", "LUNAUSDT", "FTTUSDT", "ENJUSDT", "ZRXUSDT",
+    "XLMUSDT", "NEARUSDT", "ALGOUSDT", "RUNEUSDT", "VETUSDT",
+    "XTZUSDT", "BANDUSDT", "DGBUSDT", "BNTUSDT", "STMXUSDT",
+    "ATOMUSDT", "CHZUSDT", "CVCUSDT"
 ]
 
-time_frame = "15m"  # Default time frame; adjustable
+
+time_frame = "5m"  # Default time frame; adjustable
 lookback = 500  # Look back for 500 candles
 
 # Global variables for trade tracking
@@ -140,7 +140,7 @@ def monitor_trades():
 def send_hourly_summary():
     global total_profit, total_loss, current_balance, last_summary_time
     current_time = time.time()
-    if current_time - last_summary_time >= 3600:
+    if current_time - last_summary_time >= 300:
         send_telegram_message(
             f"Hourly Summary:\nTotal Balance: ${current_balance:.2f}\nTotal Profit: ${total_profit:.2f}\nTotal Loss: ${total_loss:.2f}"
         )
